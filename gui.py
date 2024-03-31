@@ -16,14 +16,14 @@ class SimpleGUI:
         self.label = ttk.Label(self.root, text="Hello, Tkinter!")
         self.label.pack(pady=20)
 
-        self.spinbox_dx = ttk.Spinbox(self.root, textvariable=tk.DoubleVar(value=0), from_=-1.5, to=1.5, increment=0.1)
-        self.spinbox_dx.pack(padx = 100, pady= 10)
+        self.entry_dx = ttk.Entry(self.root, textvariable=tk.DoubleVar(value=0))
+        self.entry_dx.pack(padx = 100, pady= 10)
 
-        self.spinbox_dy = ttk.Spinbox(self.root, textvariable=tk.DoubleVar(value=0), from_=-1.5, to=1.5, increment=0.1)
-        self.spinbox_dy.pack(padx = 100, pady= 20)
+        self.entry_dy = ttk.Entry(self.root, textvariable=tk.DoubleVar(value=0))
+        self.entry_dy.pack(padx = 100, pady= 20)
 
-        self.spinbox_dz = ttk.Spinbox(self.root, textvariable=tk.DoubleVar(value=0), from_=-1.5, to=1.5, increment=0.1)
-        self.spinbox_dz.pack(padx = 100, pady= 20)
+        self.entry_dz = ttk.Entry(self.root, textvariable=tk.DoubleVar(value=0))
+        self.entry_dz.pack(padx = 100, pady= 20)
 
 
         # Set formation button
@@ -31,8 +31,12 @@ class SimpleGUI:
         self.button_setFormation.pack(pady=10)
 
     def setFormation(self):
-        dx = self.spinbox_dx.v
-        leader_follower.streamFormation(se)
+        dx = float(self.entry_dx.get());
+        dy = float(self.entry_dy.get());
+        dz = float(self.entry_dz.get());
+
+        print(f'Setting formation to {dx}, {dy}, {dz}');
+        leader_follower.streamFormation(dx, dy, dz);
 
 def main():
     # Define parameters
