@@ -351,7 +351,7 @@ class Window(tk.Tk):
         self.progressbar['value'] = 0
 
         
-        self.label_status = ttk.Label(self, text="Status: Specify Formation", background=dark2, foreground='white', font=("Arial", 24))
+        self.label_status = ttk.Label(self, text="Status: Ready to upload", background=dark2, foreground='white', font=("Arial", 24))
         self.label_status.place(x = x_entries, y = y_entries + 470)
 
         visualiseFormation(self, self.n_drones, self.dx, self.dy, self.dz)
@@ -383,6 +383,7 @@ class Window(tk.Tk):
         self.dy[4] = float(self.dy5_var.get())
         self.dz[4] = float(self.dz5_var.get())
         visualiseFormation(self, self.n_drones, self.dx, self.dy, self.dz)
+        self.label_status.configure(foreground='white', text='Status: Ready to upload')
 
 
     def setFormation(self):
@@ -407,7 +408,7 @@ class Window(tk.Tk):
             self.label_status.configure(foreground ="#02B075", text = "Status: Upload successful!")
         else:
             self.label_status.configure(foreground ="#E61102", text = "Status: Error during upload!")
-
+        self.update();
 
 
     def on_escape(self, event):
