@@ -352,7 +352,7 @@ class Window(tk.Tk):
         self.label_status = ttk.Label(self, text="Status: Specify Formation", background=dark2, foreground='white', font=("Arial", 24))
         self.label_status.place(x = x_entries, y = y_entries + 470)
 
-        #visualiseFormation(self, self.n_drones)
+        # visualiseFormation(self, self.n_drones)
 
 
    
@@ -383,18 +383,19 @@ class Window(tk.Tk):
 
     
     def setFormation(self):
+        self.label_status.configure(foreground ='yellow', text = "Status: Uploading...")
+        self.update();
         success = True
+
         for i in range(self.n_drones-1):
-            try:
-                time.sleep(0.3)
-                leader_follower.streamFormation(i, self.dx[i], self.dy[i], self.dz[i])
-                print(f"{i+1}/{self.n_drones-1} updated.")
-            except:
-                print(f'Update for Drone {i+2} failed.')
-                #success = False
-            finally:
+                time.sleep(1.0)
+                if leader_follower.streamFormation(i, self.dx[i], self.dy[i], self.dz[i]):
+                    print(f"Drone {i+1}/{self.n_drones-1} updated.")
+                else:
+                    print(f'Update for Drone {i+2} failed.')
+                    success = False
+            
                 self.progressbar.step(1 / (self.n_drones-1) * 99.9)
-                self.label_status.configure(foreground ='yellow', text = "Status: Uploading...")
                 self.update();
            
         self.progressbar['value'] = 0;
