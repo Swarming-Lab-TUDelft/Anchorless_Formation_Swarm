@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import tkinter as tk
 from tkinter import ttk
 
@@ -382,7 +383,9 @@ class Window(tk.Tk):
         if success:
             self.label_status.configure(foreground =special_green, text = "Status: Upload successful!")
             self.update()
-            subprocess.run('cfclient', shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            if radio_handling.startLeader():
+                print('Starting manual control')
+                subprocess.run('cfclient', shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         else:
             self.label_status.configure(foreground =special_red, text = "Status: Error during upload!")
 
