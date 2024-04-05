@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 import time
+import subprocess
 import leader_follower
 from visualisation import visualiseFormation
 
@@ -406,9 +407,10 @@ class Window(tk.Tk):
         self.progressbar['value'] = 0;
         if success:
             self.label_status.configure(foreground ="#02B075", text = "Status: Upload successful!")
+            self.update()
+            subprocess.run('cfclient', shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         else:
             self.label_status.configure(foreground ="#E61102", text = "Status: Error during upload!")
-        self.update();
 
 
     def on_escape(self, event):
