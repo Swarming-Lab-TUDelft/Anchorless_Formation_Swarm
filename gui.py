@@ -60,28 +60,30 @@ class Window(tk.Tk):
         self.flashing = False
 
 
-        self.dx = [0, 0, 0, 0, 0]; self.dy = [0, 0, 0, 0, 0]; self.dz = [0, 0, 0, 0 ,0]
+        self.dx = [0.0, 0.0, 1.0, -1.0, 0.0]; self.dy = [0.0, 0.0, 0.0, 0.0, 1.0]; self.dz = [1.0, -1.0, 0.0, 0.0, 0.0]
 
-        self.dx1_var = tk.StringVar();          self.dx1_var.set("0");          self.dx[0] = 0.0
-        self.dy1_var = tk.StringVar();          self.dy1_var.set("0");          self.dy[0] = 0.0
-        self.dz1_var = tk.StringVar();          self.dz1_var.set("0");          self.dz[0] = 0.0
+        self.dx1_var = tk.StringVar();          self.dx1_var.set(self.dx[0]);
+        self.dy1_var = tk.StringVar();          self.dy1_var.set(self.dy[0]);          
+        self.dz1_var = tk.StringVar();          self.dz1_var.set(self.dz[0]);
 
-        self.dx2_var = tk.StringVar();          self.dx2_var.set("0");          self.dx[1] = 0.0
-        self.dy2_var = tk.StringVar();          self.dy2_var.set("0");          self.dy[1] = 0.0
-        self.dz2_var = tk.StringVar();          self.dz2_var.set("0");          self.dz[1] = 0.0
+        self.dx2_var = tk.StringVar();          self.dx2_var.set(self.dx[1]);   
+        self.dy2_var = tk.StringVar();          self.dy2_var.set(self.dy[1]);        
+        self.dz2_var = tk.StringVar();          self.dz2_var.set(self.dz[1]);        
 
-        self.dx3_var = tk.StringVar();          self.dx3_var.set("0");          self.dx[2] = 0.0
-        self.dy3_var = tk.StringVar();          self.dy3_var.set("0");          self.dy[2] = 0.0
-        self.dz3_var = tk.StringVar();          self.dz3_var.set("0");          self.dz[2] = 0.0
+        self.dx3_var = tk.StringVar();          self.dx3_var.set(self.dx[2]);        
+        self.dy3_var = tk.StringVar();          self.dy3_var.set(self.dy[2]);         
+        self.dz3_var = tk.StringVar();          self.dz3_var.set(self.dz[2]);          
 
-        self.dx4_var = tk.StringVar();          self.dx4_var.set("0");          self.dx[3] = 0.0
-        self.dy4_var = tk.StringVar();          self.dy4_var.set("0");          self.dy[3] = 0.0
-        self.dz4_var = tk.StringVar();          self.dz4_var.set("0");          self.dz[3] = 0.0
+        self.dx4_var = tk.StringVar();          self.dx4_var.set(self.dx[3]);   
+        self.dy4_var = tk.StringVar();          self.dy4_var.set(self.dy[3]);   
+        self.dz4_var = tk.StringVar();          self.dz4_var.set(self.dz[3]);   
 
-        self.dx5_var = tk.StringVar();          self.dx5_var.set("0");          self.dx[4] = 0.0
-        self.dy5_var = tk.StringVar();          self.dy5_var.set("0");          self.dy[4] = 0.0
-        self.dz5_var = tk.StringVar();          self.dz5_var.set("0");          self.dz[4] = 0.0
+        self.dx5_var = tk.StringVar();          self.dx5_var.set(self.dx[4]);   
+        self.dy5_var = tk.StringVar();          self.dy5_var.set(self.dy[4]);  
+        self.dz5_var = tk.StringVar();          self.dz5_var.set(self.dz[4]);
 
+        self.bind('<Escape>', self.on_escape)
+        self.bind('<Return>', self.changeFormation)
 
         self.drawWindow()
 
@@ -352,7 +354,7 @@ class Window(tk.Tk):
         self.label_status = ttk.Label(self, text="Status: Specify Formation", background=dark2, foreground='white', font=("Arial", 24))
         self.label_status.place(x = x_entries, y = y_entries + 470)
 
-        # visualiseFormation(self, self.n_drones)
+        visualiseFormation(self, self.n_drones, self.dx, self.dy, self.dz)
 
 
    
@@ -380,9 +382,11 @@ class Window(tk.Tk):
         self.dx[4] = float(self.dx5_var.get())
         self.dy[4] = float(self.dy5_var.get())
         self.dz[4] = float(self.dz5_var.get())
+        visualiseFormation(self, self.n_drones, self.dx, self.dy, self.dz)
 
-    
+
     def setFormation(self):
+        self.changeFormation();
         self.label_status.configure(foreground ='yellow', text = "Status: Uploading...")
         self.update();
         success = True
@@ -406,12 +410,15 @@ class Window(tk.Tk):
 
 
 
+    def on_escape(self, event):
+        print('Window closed using Escape key.')
+        self.quit();
 
 
 #########################################################################
 def main():
    app = Window("Anchorless Swarm Controller")
-   app.protocol("WM_DELETE_WINDOW", app.destroy)
+   app.protocol("WM_DELETE_WINDOW", app.quit)
    app.mainloop()
 
 
