@@ -1,0 +1,4 @@
+[submodule "crazyflie-firmware"]
+	path = crazyflie-firmware
+	url = https://github.com/luptmoor/crazyflie-firmware
+	branch = token_ring_twr
