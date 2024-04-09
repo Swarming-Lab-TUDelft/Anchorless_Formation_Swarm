@@ -37,7 +37,7 @@ class Window(tk.Tk):
 
         self.n_drones = 2
 
-        self.dx = [0.0, 0.0, 1.0, -1.0, 0.0]; self.dy = [0.0, 0.0, 0.0, 0.0, 1.0]; self.dz = [1.0, -1.0, 0.0, 0.0, 0.0]
+        self.dx = [0.0, 0.5, -0.5, 0.0, 0.0]; self.dy = [0.6, -0.5, -0.5, 0.0, 0.0]; self.dz = [0.0, 0.0, 0.0, -0.7, 0.7]
 
         self.dx1_var = tk.StringVar();          self.dx1_var.set(self.dx[0]);
         self.dy1_var = tk.StringVar();          self.dy1_var.set(self.dy[0]);          
